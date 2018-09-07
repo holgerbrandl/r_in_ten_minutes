@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Analysis and Visualization with R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Holger Brandl - MPI-CBG - Scientific Computing Facility" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Data Analysis and Visualization with R
+### Holger Brandl - MPI-CBG - Scientific Computing Facility
+### CRTD Summer Conference on Regenerative Medicine
+
+---
+
+
+class: inverse,  center, middle
+
+   &lt;!--ratio: '16:9'--&gt;
+
+
+.left-column50[
+
+# What is R?
+
+# A First Example
+
+# The R Ecosystem
+
+# Data Manipulation
+
+# Data Visualization
+
+]
+.right-column50[
+
+.center[![](assets/R_logo.png)]
+
+]
+
+---
+## What is R?
+
+&gt; R is a programming language and software  environment for statistical computing, data  analysis and graphics
+
+* Provides  wide variety of statistical and  graphical techniques, including linear and  nonlinear modeling, classical statistical tests,  timeseries analysis, classification, clustering
+
+* Allows for reproducible research &amp; automation
+
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img align="middle" style='height: 70%; width: 100%; object-fit: contain' src="assets/plot_examples.png"/&gt;
+
+
+---
+## How to get started?
+
+1. Install R from http://mirrors.softliste.de/cran/
+
+2. Install an editor like https://www.rstudio.com/products/rstudio/
+
+R Studio is an excellent FREE development environment for writing your own R code. It allows the user to run R in a more user-friendly environment.
+
+.center[![](assets/rstudio_overview.png)]
+
+
+
+
+---
+background-image: url(assets/snowflake.jpg)
+background-position: top
+background-size: 110%
+class: center, middle, inverse
+
+# My assay is a special fragile snowflake.
+
+
+--
+# Possible, but unlikely!
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+---
+## Packages
+
+* R *just* ships with a small set of functions.
+
+* R can be extened with _packages_, which are collections of user written R functions, data, and compiled code in a well-defined format.
+
+.center[![](assets/num_packages.png)]
+
+---
+background-image: url(assets/bioconductor.png)
+background-position: top
+background-size: 105%
+
+
+---
+# Example: Basic Data Flow in R
+
+.center[![](assets/r_tools_2.png)]
+
+---
+exclude: true
+
+# How to install and use a new package?
+
+
+###  Install it once
+
+
+```r
+install.packages("ggplot2")
+```
+
+### Load it before you use it
+
+
+```r
+library(ggplot2)
+```
+
+---
+## Example: Analysis of Mammalian Sleep Patterns
+
+
+
+
+```r
+# Load the libaries which we will need for the analysis
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+
+## Read data from tsv and assign it to a variable
+msleep = read_tsv("data/msleep.tsv")
+
+## Explore the data
+head(msleep)
+glimpse(msleep)
+
+## Create a new column
+msleep = mutate(msleep, rem_proportion = sleep_rem / sleep_total)
+
+## Analyze correlation 
+ggplot(msleep, 
+    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
+) + geom_point(alpha=0.7)
+```
+
+---
+## Read Data from File and Assign it to Variable
+
+
+```r
+msleep = read_tsv("data/msleep.tsv")
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   name = col_character(),
+##   genus = col_character(),
+##   vore = col_character(),
+##   order = col_character(),
+##   conservation = col_character(),
+##   sleep_total = col_double(),
+##   sleep_rem = col_double(),
+##   sleep_cycle = col_double(),
+##   awake = col_double(),
+##   brainwt = col_double(),
+##   bodywt = col_double()
+## )
+```
+
+---
+## Explore the Data
+
+
+
+```r
+head(msleep)
+```
+
+```
+## # A tibble: 6 x 11
+##   name        genus   vore  order  conservation sleep_total sleep_rem
+##   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Cheetah     Acinon… carni Carni… lc                  12.1      NA  
+## 2 Owl monkey  Aotus   omni  Prima… &lt;NA&gt;                17         1.8
+## 3 Mountain b… Aplodo… herbi Roden… nt                  14.4       2.4
+## 4 Greater sh… Blarina omni  Soric… lc                  14.9       2.3
+## 5 Cow         Bos     herbi Artio… domesticated         4         0.7
+## 6 Three-toed… Bradyp… herbi Pilosa &lt;NA&gt;                14.4       2.2
+## # ... with 4 more variables: sleep_cycle &lt;dbl&gt;, awake &lt;dbl&gt;,
+## #   brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;
+```
+
+---
+## Explore the data (cont.)
+
+
+
+```r
+glimpse(msleep)
+```
+
+```
+## Observations: 83
+## Variables: 11
+## $ name         &lt;chr&gt; "Cheetah", "Owl monkey", "Mountain beaver", ...
+## $ genus        &lt;chr&gt; "Acinonyx", "Aotus", "Aplodontia", "Blarina"...
+## $ vore         &lt;chr&gt; "carni", "omni", "herbi", "omni", "herbi", "...
+## $ order        &lt;chr&gt; "Carnivora", "Primates", "Rodentia", "Sorico...
+## $ conservation &lt;chr&gt; "lc", NA, "nt", "lc", "domesticated", NA, "v...
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0,...
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, N...
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667,...
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, ...
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, N...
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850,...
+```
+
+---
+## Create a New Column
+
+
+
+```r
+msleep = mutate(msleep, rem_proportion = sleep_rem / sleep_total)
+
+glimpse(msleep)
+```
+
+```
+## Observations: 83
+## Variables: 12
+## $ name           &lt;chr&gt; "Cheetah", "Owl monkey", "Mountain beaver"...
+## $ genus          &lt;chr&gt; "Acinonyx", "Aotus", "Aplodontia", "Blarin...
+## $ vore           &lt;chr&gt; "carni", "omni", "herbi", "omni", "herbi",...
+## $ order          &lt;chr&gt; "Carnivora", "Primates", "Rodentia", "Sori...
+## $ conservation   &lt;chr&gt; "lc", NA, "nt", "lc", "domesticated", NA, ...
+## $ sleep_total    &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7....
+## $ sleep_rem      &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9,...
+## $ sleep_cycle    &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.766666...
+## $ awake          &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0...
+## $ brainwt        &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA,...
+## $ bodywt         &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.85...
+## $ rem_proportion &lt;dbl&gt; NA, 0.10588235, 0.16666667, 0.15436242, 0....
+```
+
+---
+## Analyze Correlation
+
+
+```r
+ggplot(msleep, 
+    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
+) + geom_point(alpha=0.7)
+```
+
+![](r_teaser_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+## Recap: Analysis of Mammalian Sleep Patterns
+
+```r
+# Load the libaries which we will need for the analysis
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+
+## Read data from tsv and assign it to a variable
+msleep = read_tsv("data/msleep.tsv")
+
+## Explore the data
+head(msleep)
+glimpse(msleep)
+
+## Create a new column
+msleep = mutate(msleep, rem_proportion = sleep_rem / sleep_total)
+
+## Analyze correlation 
+ggplot(msleep, 
+    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
+) + geom_point(alpha=0.7)
+```
+
+---
+## Data Manipulation with `dlyr`
+
+&gt; `dplyr` takes tables as input and creates new tables
+
+It implements the following verbs useful for data manipulation:
+
+* `select()` retains/removes a subset of variables
+* `filter()` retains/removes a subset of rows
+* `mutate()` derives new columns
+* `arrange()` re-orders the rows in a table
+* `summarise()` reduces data to a smaller number of summary statistics
+* `group_by()` takes a table and converts it into a _grouped table_ where operations are performed by group
+
+Fast, battle tested, very consistent (that is easy to learn and to recall).
+
+
+```r
+msleep %&gt;% 
+    filter(order=="Primates") %&gt;%
+    mutate(rem_proportion = sleep_rem / sleep_total) %&gt;%
+    select(name, rem_proportion) %&gt;%
+    filter(rem_proportion&gt;0.3)
+```
+
+
+---
+exclude: true
+
+## Grammar of Graphics
+
+&lt;!-- https://css-tricks.com/all-about-floats/ --&gt;
+&lt;div style="float:right; margin-left:50px; width:200px"&gt;
+
+![](assets/graphics_grammar.jpg)
+
+&lt;/div&gt;
+
+Decompose plots, into building blocks to create solid, creative, meaningful visualizations
+
+* Leland Wilkinson, Grammar of Graphics, 1999
+* 2 principles
+  1. Graphics are composed of distinct layers of grammatical elements
+  2. Data attributes mapped to aesthetics
+
+* Formal description
+```
+plot ::= coord scale+ facet? layer+
+layer ::= data mapping stat geom position?
+```
+
+---
+## Build beautiful visualizations with `ggplot2`
+
+1. one or more layers,
+2. scales to map variables from data space to visual space (like colors)
+3. a coordinate system
+4. Statistical transformations
+5. (optional) facetting to divide a plot into multiple panels
+
+
+```r
+ggplot(mtcars, aes(x=as.factor(cyl), y=mpg)) +
+    geom_boxplot() +
+    geom_point(position="jitter") +
+    ggtitle("Relation of cylinders and fuel consumption") +
+    xlab("# cylinders") + ylab("miles per gallon")
+```
+
+![](r_teaser_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+---
+
+background-image: url(assets/ggplot_examples2.png)
+background-position: center
+background-size: 120%
+
+
+![]()
+
+---
+## R is Good Scientific Practice
+
+Excel is not. :-(
+
+R has a learning curve but not as steep as python
+
+&lt;img align="middle" style='height: 70%; width: 100%; object-fit: contain' src="assets/rep_auto.png"/&gt;
+
+???
+hard at the beginning, but increasingly **fun** later
+
+*Image Sources: [Reproducibility;](http://www.drugdesigntech.com/how-maximize-the-reproducibility-of-your-research/) [Automation](https://www.globalscape.com/managed-file-transfer/automation)*
+
+
+
+---
+class: inverse, middle, center
+
+# Build Reports with RMarkdown
+
+---
+
+
+
+## Literate programming: Tell your story with data
+
+Enable result consistency and streamline communication by building reports from R scripts intervened with a lab book.
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.left-column40[
+
+### Mix  data analysis and visualzation with text
+
+### Build  pdfs, html or word reports with just a click
+]
+
+.right-column60[
+
+![](assets/knit_it.png)
+
+]
+
+---
+# Example: Source Document
+
+![](assets/rm_example.png)
+
+---
+exclude: true
+
+background-image: url(assets/spin_workflow.jpg)
+background-position: bottom
+background-size: 95%
+
+
+---
+# Exampe: Generated Report
+
+.image-50[![](assets/rmd_result.png)]
+
+???
+
+Pros
+1. Interact with R in a **single, seamless stream**
+
+2. **Iterate quickly** on code and output; see code and output together.
+
+3. Leave a **clean, reproducible record** of your analysis in a simple text file.
+
+4. Document your analysis with **rich, literate prose**
+
+5. **Share the analysis** easily.
+
+6. **One-click export** to HTML, PDF and Word
+
+
+
+---
+class: inverse, center, middle
+
+# Let data tell its story
+
+---
+## Interactive Visualization with Shiny
+
+&gt; Shiny is an R package that makes it easy to build interactive web apps straight from R.
+
+#### Publish complex data sets not just as dumb table, but as interactive webapp
+
+.center[.image-50[![](assets/shiny_app_example.png)]]
+
+Example http://shiny.rstudio.com/gallery/movie-explorer.html
+
+???
+
+Extensions
+
+- `ggvis`: Interactive, web based graphics built with the grammar of graphics (ggplot2).
+
+- `DT`: provides an R interface to the JavaScript library DataTables.
+
+- `htmlwidgets`: A fast way to build interactive (javascript based) visualizations with R.
+
+---
+exclude: true
+background-image: url(assets/movie_explorer.png)
+background-position: bottom
+
+
+[open live versino](http://shiny.rstudio.com/gallery/movie-explorer.html)
+
+---
+exclude: true
+
+# Example: interactive histogram
+
+https://shiny.rstudio.com/gallery/single-file-shiny-app.html
+
+
+```r
+# Global variables can go here
+n &lt;- 200
+
+
+# Define the UI
+ui &lt;- bootstrapPage(
+  numericInput('n', 'Number of obs', n),
+  plotOutput('plot')
+)
+
+
+# Define the server code
+server &lt;- function(input, output) {
+  output$plot &lt;- renderPlot({
+    hist(runif(input$n))
+  })
+}
+
+# Return a Shiny app object
+shinyApp(ui = ui, server = server)
+```
+
+---
+exclude: true
+
+# Resulting Website
+
+![](assets/interact_histo.png)
+
+
+---
+# How to get started?
+
+- Do one of the interactive Coures at [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r)
+
+- Read [R for Data Science](http://r4ds.had.co.nz/) by Grolemund &amp; Wickham
+
+- Print and use the [Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) by RSstudio
+
+
+&lt;br&gt;
+
+&lt;img align="middle" style='height: 70%; width: 100%; object-fit: contain' src="assets/cheatsheets_overview.png"/&gt;
+
+
+???
+
+Get involved
+
+- Follow the community on  [R-Bloggers](https://www.r-bloggers.com)
+
+- Ask questions at [BioStars](https://www.biostars.org/)
+
+**presenter's choice**
+
+
+---
+class: inverse
+
+.left-column50[
+
+
+## Summary
+
+
+## Learn `R` by using it!
+
+## There's a package also for your special snowflake
+
+## Feel welcome if you need help :-)
+
+]
+
+--
+.right-column50[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+![](assets/thank_you.png)
+ ]
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
