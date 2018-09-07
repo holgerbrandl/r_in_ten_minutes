@@ -203,7 +203,7 @@ glimpse(msleep)
 ---
 ## Analyze Correlation
 
-```{r, warning=F,  fig.height=6}
+```{r sleep_cor, warning=F,  fig.height=6}
 ggplot(msleep, aes(sleep_total, rem_proportion, color=vore, size=brainwt)) + 
     geom_point(alpha=0.7)
 ```
@@ -234,7 +234,7 @@ ggplot(msleep, aes(sleep_total, rem_proportion, color=vore, size=brainwt)) +
 ```
 
 ---
-## Data Manipulation with `dlyr`
+## Data Manipulation with `dplyr`
 
 > `dplyr` takes tables as input and creates new tables
 
@@ -297,7 +297,7 @@ layer ::= data mapping stat geom position?
 4. Statistical transformations
 5. (optional) facetting to divide a plot into multiple panels
 
-```{r fig.height=3}
+```{r ggexample, fig.height=3}
 ggplot(mtcars, aes(x=as.factor(cyl), y=mpg)) +
     geom_boxplot() +
     geom_point(position="jitter") +
