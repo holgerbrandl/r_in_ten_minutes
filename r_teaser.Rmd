@@ -51,6 +51,9 @@ class: inverse,  center, middle
 
 <img align="middle" style='height: 70%; width: 100%; object-fit: contain' src="assets/plot_examples.png"/>
 
+???
+
+good & bad news
 
 ---
 ## How to get started?
@@ -61,9 +64,12 @@ class: inverse,  center, middle
 
 R Studio is an excellent FREE development environment for writing your own R code. It allows the user to run R in a more user-friendly environment.
 
-.center[![](assets/rstudio_overview.png)]
+.image-110[.center[![](assets/rstudio_overview.png)]]
 
 
+???
+
+wa analgoy, single contact
 
 
 ---
@@ -366,9 +372,14 @@ background-size: 95%
 
 
 ---
-# Exampe: Generated Report
 
-.image-50[![](assets/rmd_result.png)]
+background-image: url(assets/rmd_result.png)
+background-position: top
+background-size: 80%
+
+
+
+
 
 ???
 
@@ -485,6 +496,8 @@ Get involved
 **presenter's choice**
 
 
+living with 3 slides
+
 ---
 class: inverse
 
@@ -500,9 +513,8 @@ class: inverse
 
 ## Feel welcome if you need help :-)
 
-https://github.com/holgerbrandl/r_in_ten_minutes
-
 ]
+
 
 --
 .right-column50[
@@ -512,6 +524,11 @@ https://github.com/holgerbrandl/r_in_ten_minutes
 <br>
 <br>
 ![](assets/thank_you.png)
- ]
+
+]
+
+
+<br>
+https://github.com/holgerbrandl/r_in_ten_minutes
 
 
