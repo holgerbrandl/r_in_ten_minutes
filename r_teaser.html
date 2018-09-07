@@ -21,7 +21,6 @@ class: center, middle, inverse, title-slide
 
 class: inverse,  center, middle
 
-   &lt;!--ratio: '16:9'--&gt;
 
 
 .left-column50[
@@ -68,12 +67,13 @@ good &amp; bad news
 
 2. Install an editor like [RStudio](https://www.rstudio.com/products/rstudio/)
 
-R Studio is an excellent FREE development environment for writing your own R code. It allows the user to run R in a more user-friendly environment.
-
+&lt;br&gt;
+&lt;br&gt;
 .image-110[.center[![](assets/rstudio_overview.png)]]
 
 
 ???
+
 
 wa analgoy, single contact
 
@@ -159,9 +159,8 @@ glimpse(msleep)
 msleep = mutate(msleep, rem_proportion = sleep_rem / sleep_total)
 
 ## Analyze correlation 
-ggplot(msleep, 
-    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
-) + geom_point(alpha=0.7)
+ggplot(msleep, aes(sleep_total, rem_proportion, color=vore, size=brainwt)) + 
+    geom_point(alpha=0.7)
 ```
 
 ---
@@ -200,16 +199,15 @@ head(msleep)
 
 ```
 ## # A tibble: 6 x 11
-##   name        genus   vore  order  conservation sleep_total sleep_rem
-##   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;
-## 1 Cheetah     Acinon… carni Carni… lc                  12.1      NA  
-## 2 Owl monkey  Aotus   omni  Prima… &lt;NA&gt;                17         1.8
-## 3 Mountain b… Aplodo… herbi Roden… nt                  14.4       2.4
-## 4 Greater sh… Blarina omni  Soric… lc                  14.9       2.3
-## 5 Cow         Bos     herbi Artio… domesticated         4         0.7
-## 6 Three-toed… Bradyp… herbi Pilosa &lt;NA&gt;                14.4       2.2
-## # ... with 4 more variables: sleep_cycle &lt;dbl&gt;, awake &lt;dbl&gt;,
-## #   brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;
+##   name    genus vore  order conservation sleep_total sleep_rem sleep_cycle awake  brainwt
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Cheetah Acin… carni Carn… lc                  12.1      NA        NA      11.9 NA      
+## 2 Owl mo… Aotus omni  Prim… &lt;NA&gt;                17         1.8      NA       7    0.0155 
+## 3 Mounta… Aplo… herbi Rode… nt                  14.4       2.4      NA       9.6 NA      
+## 4 Greate… Blar… omni  Sori… lc                  14.9       2.3       0.133   9.1  0.00029
+## 5 Cow     Bos   herbi Arti… domesticated         4         0.7       0.667  20    0.423  
+## 6 Three-… Brad… herbi Pilo… &lt;NA&gt;                14.4       2.2       0.767   9.6 NA      
+## # ... with 1 more variable: bodywt &lt;dbl&gt;
 ```
 
 ---
@@ -224,17 +222,17 @@ glimpse(msleep)
 ```
 ## Observations: 83
 ## Variables: 11
-## $ name         &lt;chr&gt; "Cheetah", "Owl monkey", "Mountain beaver", ...
-## $ genus        &lt;chr&gt; "Acinonyx", "Aotus", "Aplodontia", "Blarina"...
-## $ vore         &lt;chr&gt; "carni", "omni", "herbi", "omni", "herbi", "...
-## $ order        &lt;chr&gt; "Carnivora", "Primates", "Rodentia", "Sorico...
-## $ conservation &lt;chr&gt; "lc", NA, "nt", "lc", "domesticated", NA, "v...
-## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0,...
-## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, N...
-## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667,...
-## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, ...
-## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, N...
-## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850,...
+## $ name         &lt;chr&gt; "Cheetah", "Owl monkey", "Mountain beaver", "Greater short-taile...
+## $ genus        &lt;chr&gt; "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Bradypus",...
+## $ vore         &lt;chr&gt; "carni", "omni", "herbi", "omni", "herbi", "herbi", "carni", NA,...
+## $ order        &lt;chr&gt; "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Artiodacty...
+## $ conservation &lt;chr&gt; "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "domesticate...
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5.3, 9.4...
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, 0.7, 1....
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, NA, 0.33...
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 18.7, 14...
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0.09820,...
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.045, 14.0...
 ```
 
 ---
@@ -251,18 +249,18 @@ glimpse(msleep)
 ```
 ## Observations: 83
 ## Variables: 12
-## $ name           &lt;chr&gt; "Cheetah", "Owl monkey", "Mountain beaver"...
-## $ genus          &lt;chr&gt; "Acinonyx", "Aotus", "Aplodontia", "Blarin...
-## $ vore           &lt;chr&gt; "carni", "omni", "herbi", "omni", "herbi",...
-## $ order          &lt;chr&gt; "Carnivora", "Primates", "Rodentia", "Sori...
-## $ conservation   &lt;chr&gt; "lc", NA, "nt", "lc", "domesticated", NA, ...
-## $ sleep_total    &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7....
-## $ sleep_rem      &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9,...
-## $ sleep_cycle    &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.766666...
-## $ awake          &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0...
-## $ brainwt        &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA,...
-## $ bodywt         &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.85...
-## $ rem_proportion &lt;dbl&gt; NA, 0.10588235, 0.16666667, 0.15436242, 0....
+## $ name           &lt;chr&gt; "Cheetah", "Owl monkey", "Mountain beaver", "Greater short-tai...
+## $ genus          &lt;chr&gt; "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Bradypus...
+## $ vore           &lt;chr&gt; "carni", "omni", "herbi", "omni", "herbi", "herbi", "carni", N...
+## $ order          &lt;chr&gt; "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Artiodac...
+## $ conservation   &lt;chr&gt; "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "domestica...
+## $ sleep_total    &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5.3, 9...
+## $ sleep_rem      &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, 0.7, ...
+## $ sleep_cycle    &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, NA, 0....
+## $ awake          &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 18.7, ...
+## $ brainwt        &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0.0982...
+## $ bodywt         &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.045, 14...
+## $ rem_proportion &lt;dbl&gt; NA, 0.10588235, 0.16666667, 0.15436242, 0.17500000, 0.15277778...
 ```
 
 ---
@@ -270,9 +268,8 @@ glimpse(msleep)
 
 
 ```r
-ggplot(msleep, 
-    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
-) + geom_point(alpha=0.7)
+ggplot(msleep, aes(sleep_total, rem_proportion, color=vore, size=brainwt)) + 
+    geom_point(alpha=0.7)
 ```
 
 ![](r_teaser_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
@@ -298,9 +295,8 @@ glimpse(msleep)
 msleep = mutate(msleep, rem_proportion = sleep_rem / sleep_total)
 
 ## Analyze correlation 
-ggplot(msleep, 
-    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
-) + geom_point(alpha=0.7)
+ggplot(msleep, aes(sleep_total, rem_proportion, color=vore, size=brainwt)) + 
+    geom_point(alpha=0.7)
 ```
 
 ---
@@ -328,6 +324,10 @@ msleep %&gt;%
     filter(rem_proportion&gt;0.3)
 ```
 
+
+???
+
+peak in one of them
 
 ---
 exclude: true
@@ -390,9 +390,10 @@ Excel is not. :-(
 
 R has a learning curve but not as steep as python
 
-&lt;img align="middle" style='height: 70%; width: 100%; object-fit: contain' src="assets/rep_auto.png"/&gt;
+&lt;img align="middle" style='height: 70%; width: 90%; object-fit: contain' src="assets/rep_auto.png"/&gt;
 
 ???
+
 hard at the beginning, but increasingly **fun** later
 
 *Image Sources: [Reproducibility;](http://www.drugdesigntech.com/how-maximize-the-reproducibility-of-your-research/) [Automation](https://www.globalscape.com/managed-file-transfer/automation)*
@@ -418,7 +419,7 @@ Enable result consistency and streamline communication by building reports from 
 
 .left-column40[
 
-### Mix  data analysis and visualzation with text
+### Mix  data analysis and visualization with natural language
 
 ### Build  pdfs, html or word reports with just a click
 ]
@@ -450,25 +451,6 @@ background-size: 80%
 
 
 
-
-
-???
-
-Pros
-1. Interact with R in a **single, seamless stream**
-
-2. **Iterate quickly** on code and output; see code and output together.
-
-3. Leave a **clean, reproducible record** of your analysis in a simple text file.
-
-4. Document your analysis with **rich, literate prose**
-
-5. **Share the analysis** easily.
-
-6. **One-click export** to HTML, PDF and Word
-
-
-
 ---
 class: inverse, center, middle
 
@@ -486,14 +468,6 @@ class: inverse, center, middle
 Example http://shiny.rstudio.com/gallery/movie-explorer.html
 
 ???
-
-Extensions
-
-- `ggvis`: Interactive, web based graphics built with the grammar of graphics (ggplot2).
-
-- `DT`: provides an R interface to the JavaScript library DataTables.
-
-- `htmlwidgets`: A fast way to build interactive (javascript based) visualizations with R.
 
 ---
 exclude: true
@@ -545,30 +519,20 @@ exclude: true
 ---
 # How to get started?
 
-- Do one of the interactive Coures at [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r)
+- Do one of the interactive courses at [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r)
 
 - Read [R for Data Science](http://r4ds.had.co.nz/) by Grolemund &amp; Wickham
 
-- Print and use the [Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) by RSstudio
+- Print and use the [Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) by RStudio
 
-
-&lt;br&gt;
 
 &lt;img align="middle" style='height: 70%; width: 100%; object-fit: contain' src="assets/cheatsheets_overview.png"/&gt;
 
 
 ???
 
-Get involved
 
-- Follow the community on  [R-Bloggers](https://www.r-bloggers.com)
-
-- Ask questions at [BioStars](https://www.biostars.org/)
-
-**presenter's choice**
-
-
-living with 3 slides
+believe it or not, I make my living by just using 3 slides
 
 ---
 class: inverse
@@ -588,8 +552,7 @@ class: inverse
 ]
 
 
---
-.right-column50[
+.right-column40[
 
 &lt;br&gt;
 &lt;br&gt;
@@ -602,9 +565,15 @@ class: inverse
 
 &lt;br&gt;
 https://github.com/holgerbrandl/r_in_ten_minutes
+
+
+???
+
+no package -&gt; coffee
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
+"ratio": "16:9",
 "highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false

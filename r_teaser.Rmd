@@ -8,6 +8,7 @@ output:
   lib_dir: libs
   css: ["default", "default-fonts", "assets/my-theme.css"]
   nature:
+   ratio: '16:9'
    highlightStyle: github
    highlightLines: true
    countIncrementalSlides: false
@@ -15,7 +16,6 @@ output:
 
 class: inverse,  center, middle
 
-   <!--ratio: '16:9'-->
 
 
 .left-column50[
@@ -62,12 +62,13 @@ good & bad news
 
 2. Install an editor like [RStudio](https://www.rstudio.com/products/rstudio/)
 
-R Studio is an excellent FREE development environment for writing your own R code. It allows the user to run R in a more user-friendly environment.
-
+<br>
+<br>
 .image-110[.center[![](assets/rstudio_overview.png)]]
 
 
 ???
+
 
 wa analgoy, single contact
 
@@ -139,7 +140,7 @@ library(ggplot2)
 ## adjust print rendering
 options(
   width = 90,
-  dplyr.width = 70,
+  dplyr.width = 90,
   dplyr.print_max = 20
 )
 ```
@@ -162,9 +163,8 @@ glimpse(msleep)
 msleep = mutate(msleep, rem_proportion = sleep_rem / sleep_total)
 
 ## Analyze correlation 
-ggplot(msleep, 
-    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
-) + geom_point(alpha=0.7)
+ggplot(msleep, aes(sleep_total, rem_proportion, color=vore, size=brainwt)) + 
+    geom_point(alpha=0.7)
 ```
 
 ---
@@ -204,9 +204,8 @@ glimpse(msleep)
 ## Analyze Correlation
 
 ```{r, warning=F,  fig.height=6}
-ggplot(msleep, 
-    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
-) + geom_point(alpha=0.7)
+ggplot(msleep, aes(sleep_total, rem_proportion, color=vore, size=brainwt)) + 
+    geom_point(alpha=0.7)
 ```
 
 ---
@@ -230,9 +229,8 @@ glimpse(msleep)
 msleep = mutate(msleep, rem_proportion = sleep_rem / sleep_total)
 
 ## Analyze correlation 
-ggplot(msleep, 
-    aes(sleep_total, rem_proportion, color=vore, size=brainwt)
-) + geom_point(alpha=0.7)
+ggplot(msleep, aes(sleep_total, rem_proportion, color=vore, size=brainwt)) + 
+    geom_point(alpha=0.7)
 ```
 
 ---
@@ -260,6 +258,10 @@ msleep %>%
     filter(rem_proportion>0.3)
 ```
 
+
+???
+
+peak in one of them
 
 ---
 exclude: true
@@ -319,9 +321,10 @@ Excel is not. :-(
 
 R has a learning curve but not as steep as python
 
-<img align="middle" style='height: 70%; width: 100%; object-fit: contain' src="assets/rep_auto.png"/>
+<img align="middle" style='height: 70%; width: 90%; object-fit: contain' src="assets/rep_auto.png"/>
 
 ???
+
 hard at the beginning, but increasingly **fun** later
 
 *Image Sources: [Reproducibility;](http://www.drugdesigntech.com/how-maximize-the-reproducibility-of-your-research/) [Automation](https://www.globalscape.com/managed-file-transfer/automation)*
@@ -347,7 +350,7 @@ Enable result consistency and streamline communication by building reports from 
 
 .left-column40[
 
-### Mix  data analysis and visualzation with text
+### Mix  data analysis and visualization with natural language
 
 ### Build  pdfs, html or word reports with just a click
 ]
@@ -379,25 +382,6 @@ background-size: 80%
 
 
 
-
-
-???
-
-Pros
-1. Interact with R in a **single, seamless stream**
-
-2. **Iterate quickly** on code and output; see code and output together.
-
-3. Leave a **clean, reproducible record** of your analysis in a simple text file.
-
-4. Document your analysis with **rich, literate prose**
-
-5. **Share the analysis** easily.
-
-6. **One-click export** to HTML, PDF and Word
-
-
-
 ---
 class: inverse, center, middle
 
@@ -415,14 +399,6 @@ class: inverse, center, middle
 Example http://shiny.rstudio.com/gallery/movie-explorer.html
 
 ???
-
-Extensions
-
-- `ggvis`: Interactive, web based graphics built with the grammar of graphics (ggplot2).
-
-- `DT`: provides an R interface to the JavaScript library DataTables.
-
-- `htmlwidgets`: A fast way to build interactive (javascript based) visualizations with R.
 
 ---
 exclude: true
@@ -473,30 +449,20 @@ exclude: true
 ---
 # How to get started?
 
-- Do one of the interactive Coures at [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r)
+- Do one of the interactive courses at [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r)
 
 - Read [R for Data Science](http://r4ds.had.co.nz/) by Grolemund & Wickham
 
-- Print and use the [Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) by RSstudio
+- Print and use the [Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) by RStudio
 
-
-<br>
 
 <img align="middle" style='height: 70%; width: 100%; object-fit: contain' src="assets/cheatsheets_overview.png"/>
 
 
 ???
 
-Get involved
 
-- Follow the community on  [R-Bloggers](https://www.r-bloggers.com)
-
-- Ask questions at [BioStars](https://www.biostars.org/)
-
-**presenter's choice**
-
-
-living with 3 slides
+believe it or not, I make my living by just using 3 slides
 
 ---
 class: inverse
@@ -516,8 +482,7 @@ class: inverse
 ]
 
 
---
-.right-column50[
+.right-column40[
 
 <br>
 <br>
@@ -532,3 +497,6 @@ class: inverse
 https://github.com/holgerbrandl/r_in_ten_minutes
 
 
+???
+
+no package -> coffee
