@@ -57,7 +57,7 @@ class: inverse,  center, middle
 
 1. Install R from http://r-project.org
 
-2. Install an editor like https://www.rstudio.com/products/rstudio/
+2. Install an editor like [RStudio](https://www.rstudio.com/products/rstudio/)
 
 R Studio is an excellent FREE development environment for writing your own R code. It allows the user to run R in a more user-friendly environment.
 
@@ -499,6 +499,8 @@ class: inverse
 ## There's a package also for your special snowflake
 
 ## Feel welcome if you need help :-)
+
+https://github.com/holgerbrandl/r_in_ten_minutes
 
 ]
 
